@@ -31,3 +31,9 @@ services:
         arguments: [~, App\Entity\User, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: User, label: User }
+
+    admin.project:
+        class: App\Admin\ProjectAdmin
+        arguments: [~, App\Entity\Project, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Content, label: Project }
