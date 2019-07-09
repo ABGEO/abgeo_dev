@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Admin;
 
 use App\Entity\Project;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -55,7 +56,7 @@ final class ProjectAdmin extends AbstractAdmin
                 'required' => false
             ])
             ->add('startDate')
-            ->add('description');
+            ->add('description', CKEditorType::class);
     }
 
     public function validate(ErrorElement $errorElement, $object)
