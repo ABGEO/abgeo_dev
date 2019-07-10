@@ -42,7 +42,7 @@
                             <p>{{ project.description|striptags|slice(0, 150) }}...</p>
 
                             <div class="more_btn">
-                                <a class="main_btn" href="#">Read More</a>
+                                <a class="main_btn" href="{{ path('single_project', { 'id': project.id }) }}">Read More</a>
                             </div>
                         </div>
                     </div>
