@@ -244,13 +244,13 @@
             </div>
             <div class="lw_inner">
                 <div class="lw_slider owl-carousel">
-                    {% for i in 1..4 %}
+                    {% for project in recentProjects %}
                         <div class="item">
                             <div class="lw_item">
                                 <a href="#">
-                                    <h4>Project {{ i }}</h4>
-                                    <p><i class="fa fa-calendar"></i> <b>xx/xx/xxxx</b></p>
-                                    <p>Project {{ i }} Description</p>
+                                    <h4>{{ project.title }}</h4>
+                                    <p><i class="fa fa-calendar"></i> <b>{{ project.startDate|date('d/m/Y') }}</b></p>
+                                    <p>{{ project.description|striptags|slice(0, 100) }}...</p>
                                 </a>
                             </div>
                         </div>

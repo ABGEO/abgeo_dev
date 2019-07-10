@@ -20,11 +20,17 @@ class DefaultController extends AbstractController
      *
      * @Route("/", name="index")
      *
+     * @param ProjectRepository $repository
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(ProjectRepository $repository)
     {
-        return $this->render('default/index.html.twig');
+        $recentProjects = $repository->getSortedProjects(5);
+
+        return $this->render('default/index.html.twig', [
+            'recentProjects' => $recentProjects
+        ]);
     }
 
     /**
