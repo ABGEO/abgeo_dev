@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Form\ContactFormType;
+use App\Repository\BlogRepository;
 use App\Repository\ProjectRepository;
 use App\Service\MailerService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -72,6 +74,27 @@ class DefaultController extends AbstractController
 
         return $this->render('default/project.html.twig', [
             'project' => $project
+        ]);
+    }
+
+    /**
+     * Blog Action.
+     *
+     * @Route("/blog/{page}", name="blog", requirements={"page"="\d+"}, defaults={"page"=1})
+     *
+     * @param int $page
+     * @param BlogRepository $repository
+     * @param PaginatorInterface $paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function blogListing(int $page, BlogRepository $repository, PaginatorInterface $paginator)
+    {
+        // Create pagination.
+        $pagination = $paginator->paginate($repository->getQueryBuilder(), $page, 10);
+
+        return $this->render('default/blog.html.twig', [
+            'pagination' => $pagination
         ]);
     }
 
