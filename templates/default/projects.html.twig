@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projects{% endblock %}
+
+{% block body %}
+    <!--================ Home Banner Area =================-->
+    <section class="banner_area">
+        <div class="box_1620">
+            <div class="banner_inner d-flex align-items-center">
+                <div class="container">
+                    <div class="banner_content text-center">
+                        <h2>Projects</h2>
+                        <div class="page_link">
+                            <a href="{{ path('index') }}">Home</a>
+                            <a href="{{ path('projects') }}">Projects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Home Banner Area =================-->
+
+    <!--================ Project Area =================-->
+    <section class="project_area white_project p_120">
+        <div class="container">
+            <div class="project_inner gallery_f_inner row projectsGallery">
+                {% for project in projects %}
+                    <div class="col-lg-6 col-md-6">
+                        <div class="project_item">
+                            <div class="h_gallery_item">
+                                <div class="g_img_item">
+                                    <img class="img-fluid" src="{{ asset('uploads/images/projects/' ~ project.image) }}" alt="{{ project.title }}">
+                                    <a class="light" href="{{ asset('uploads/images/projects/' ~ project.image) }}">
+                                        <img src="{{ asset('img/gallery-icon.png') }}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <h4>{{ project.title }}</h4>
+                            <p><b>{{ project.startDate|date('d/m/Y') }}</b></p>
+                            <p>{{ project.description|striptags|slice(0, 150) }}...</p>
+
+                            <div class="more_btn">
+                                <a class="main_btn" href="#">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!--================ End Project Area =================-->
+{% endblock %}

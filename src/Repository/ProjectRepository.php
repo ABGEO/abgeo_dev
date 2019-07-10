@@ -19,6 +19,28 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+    /**
+     * Get projects sorted by ID descending with limit.
+     *
+     * @param int $limit Max Projects Count.
+     *
+     * @return array|null
+     */
+    public function getSortedProjects(int $limit = -1): ?array
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        if (-1 !== $limit) {
+            $queryBuilder->setMaxResults($limit);
+        }
+
+        $result = $queryBuilder->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
     // /**
     //  * @return Project[] Returns an array of Project objects
     //  */

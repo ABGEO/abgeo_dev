@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ContactFormType;
+use App\Repository\ProjectRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,24 @@ class DefaultController extends AbstractController
     public function index()
     {
         return $this->render('default/index.html.twig');
+    }
+
+    /**
+     * Projects Action.
+     *
+     * @Route("/projects", name="projects")
+     *
+     * @param ProjectRepository $repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function projectsListing(ProjectRepository $repository)
+    {
+        $projects = $repository->getSortedProjects();
+
+        return $this->render('default/projects.html.twig', [
+            'projects' => $projects
+        ]);
     }
 
     /**
