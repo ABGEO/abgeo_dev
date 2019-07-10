@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Form\ContactFormType;
+use App\Repository\ProjectRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -19,11 +21,58 @@ class DefaultController extends AbstractController
      *
      * @Route("/", name="index")
      *
+     * @param ProjectRepository $repository
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(ProjectRepository $repository)
     {
-        return $this->render('default/index.html.twig');
+        $recentProjects = $repository->getSortedProjects(5);
+
+        return $this->render('default/index.html.twig', [
+            'recentProjects' => $recentProjects
+        ]);
+    }
+
+    /**
+     * Projects Action.
+     *
+     * @Route("/projects", name="projects")
+     *
+     * @param ProjectRepository $repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function projectsListing(ProjectRepository $repository)
+    {
+        $projects = $repository->getSortedProjects();
+
+        return $this->render('default/projects.html.twig', [
+            'projects' => $projects
+        ]);
+    }
+
+    /**
+     * Projects Action.
+     *
+     * @Route("/project/{id}", name="single_project", requirements={"id"="\d+"})
+     *
+     * @param int $id
+     * @param ProjectRepository $repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function singleProject(int $id, ProjectRepository $repository)
+    {
+        $project = $repository->find($id);
+
+        if (null === $project) {
+            throw new NotFoundHttpException('Project ' . $id . ' not found!');
+        }
+
+        return $this->render('default/project.html.twig', [
+            'project' => $project
+        ]);
     }
 
     /**
