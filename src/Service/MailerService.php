@@ -81,7 +81,7 @@ class MailerService
     ): bool
     {
         $message = new Swift_Message($subject);
-        $fromEmail = $from ?: getenv('SITE_MAIL');
+        $fromEmail = $from ?: getenv('SITE_EMAIL');
         $message->setFrom($fromEmail)->setTo($to)->setBody(
             $this->twig->render($template, $variables),
             'text/html'
