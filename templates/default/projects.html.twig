@@ -39,7 +39,7 @@
 
                             <h4>{{ project.title }}</h4>
                             <p><b>{{ project.startDate|date('d/m/Y') }}</b></p>
-                            <p>{{ project.description|striptags|slice(0, 150) }}...</p>
+                            <p>{{ project.description|preview|raw }}</p>
 
                             <div class="more_btn">
                                 <a class="main_btn" href="{{ path('single_project', { 'id': project.id }) }}">Read More</a>

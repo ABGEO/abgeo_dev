@@ -34,7 +34,7 @@ class ProjectRepository extends ServiceEntityRepository
             $queryBuilder->setMaxResults($limit);
         }
 
-        $result = $queryBuilder->orderBy('p.id', 'DESC')
+        $result = $queryBuilder->orderBy('p.startDate', 'DESC')
             ->getQuery()
             ->getResult();
 

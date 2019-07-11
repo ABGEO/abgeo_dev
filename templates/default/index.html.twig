@@ -250,7 +250,7 @@
                                 <a href="{{ path('single_project', { 'id': project.id }) }}">
                                     <h4>{{ project.title }}</h4>
                                     <p><i class="fa fa-calendar"></i> <b>{{ project.startDate|date('d/m/Y') }}</b></p>
-                                    <p>{{ project.description|striptags|slice(0, 100) }}...</p>
+                                    <p>{{ project.description|preview|raw }}</p>
                                 </a>
                             </div>
                         </div>
