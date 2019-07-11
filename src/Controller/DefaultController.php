@@ -109,8 +109,12 @@ class DefaultController extends AbstractController
             10
         );
 
+        // Get top 5 blog by views count.
+        $popularBlogs = $repository->getPopularBlogs(5);
+
         return $this->render('default/blog.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'popularBlogs' => $popularBlogs
         ]);
     }
 
@@ -142,10 +146,14 @@ class DefaultController extends AbstractController
         $previous = $repository->getPrevOrNext($id, BlogRepository::PREVIOUS);
         $next = $repository->getPrevOrNext($id, BlogRepository::NEXT);
 
+        // Get top 5 blog by views count.
+        $popularBlogs = $repository->getPopularBlogs(5, [$id]);
+
         return $this->render('default/single_blog.html.twig', [
             'blog' => $blog,
             'previousBlog' => $previous,
-            'nextBlog' => $next
+            'nextBlog' => $next,
+            'popularBlogs' => $popularBlogs
         ]);
     }
 

@@ -86,6 +86,31 @@ class BlogRepository extends ServiceEntityRepository
         return $result;
     }
 
+    /**
+     * Get popular posts by views.
+     *
+     * @param int $limit
+     * @param array $exclude
+     * @return mixed
+     */
+    public function getPopularBlogs(int $limit, array $exclude = [])
+    {
+        $result = $this->createQueryBuilder('b')
+            ->select('b.id, b.title, b.createdOn, b.views');
+
+        if (!empty($exclude)) {
+            $result->where('b.id not in (:exclude)')
+                ->setParameter('exclude', $exclude);
+        }
+
+        $result = $result->setMaxResults($limit)
+            ->orderBy('b.views', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
     // /**
     //  * @return Blog[] Returns an array of Blog objects
     //  */

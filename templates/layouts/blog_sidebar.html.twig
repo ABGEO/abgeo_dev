@@ -10,4 +10,20 @@
             <div class="br"></div>
         </form>
     </aside>
+
+    {% if popularBlogs is defined and popularBlogs is not empty %}
+        <aside class="single_sidebar_widget popular_post_widget">
+            <h3 class="widget_title">Popular Blogs</h3>
+            {% for blog in popularBlogs %}
+                <div class="media post_item">
+                    <div class="media-body">
+                        <a href="{{ path('single_blog', { 'id': blog.id }) }}"><h3>{{ blog.title }}</h3></a>
+                        <p>{{ blog.createdOn|date('d/m/Y H:i') }}</p>
+                        <p>{{ blog.views }} Views</p>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="br"></div>
+        </aside>
+    {% endif %}
 </div>
