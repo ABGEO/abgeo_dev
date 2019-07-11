@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block body %}
+    <!--================ Home Banner Area =================-->
+    <section class="banner_area">
+        <div class="box_1620">
+            <div class="banner_inner d-flex align-items-center">
+                <div class="container">
+                    <div class="banner_content text-center">
+                        <h2>{{ blog.title }}</h2>
+                        <div class="page_link">
+                            <a href="{{ path('index') }}">Home</a>
+                            <a href="{{ path('blog') }}">Blog</a>
+                            <a href="{{ path('single_blog', { 'id': blog.id }) }}">{{ blog.title }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Home Banner Area =================-->
+
+    <!--================ Blog Area =================-->
+    <section class="blog_area single-post-area p_120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post row">
+                        <div class="col-lg-3  col-md-3">
+                            <div class="blog_info text-right">
+                                <ul class="blog_meta list">
+                                    <li><a href="#">{{ blog.author }}<i class="lnr lnr-user"></i></a></li>
+                                    <li><a href="#">{{ blog.createdOn|date('d/m/Y H:i') }}<iclass="lnr lnr-calendar-full"></i></a></li>
+                                    <li><a href="#">{{ blog.views }} Views<i class="lnr lnr-eye"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-9 blog_details">
+                            {{ blog.body|raw }}
+                        </div>
+                    </div>
+
+                    <div class="navigation-area">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                                <div class="detials">
+                                    <p>Previous Blog</p>
+                                    {% if previousBlog is not empty %}
+                                        <a href="{{ path('single_blog', { 'id': previousBlog.id }) }}">
+                                            <h4>{{ previousBlog.title }}</h4>
+                                        </a>
+                                    {% else %}
+                                        <h4>It's First Blog :)</h4>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                                <div class="detials">
+                                    <p>Next Blog</p>
+                                    {% if nextBlog is not empty %}
+                                        <a href="{{ path('single_blog', { 'id': nextBlog.id }) }}">
+                                            <h4>{{ nextBlog.title }}</h4>
+                                        </a>
+                                    {% else %}
+                                        <h4>It's Last Blog :)</h4>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    {% include 'layouts/blog_sidebar.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ End Blog Area =================-->
+{% endblock %}

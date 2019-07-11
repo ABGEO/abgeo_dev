@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Blog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -15,6 +16,11 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class BlogRepository extends ServiceEntityRepository
 {
+
+    // Directions for getPrevOrNext method.
+    const PREVIOUS = 1;
+    const NEXT = 2;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Blog::class);
@@ -39,6 +45,45 @@ class BlogRepository extends ServiceEntityRepository
         }
 
         return $queryBuilder->orderBy('b.createdOn', 'DESC');
+    }
+
+    /**
+     * Get previous or next blog for given blogId;
+     *
+     * @param int $blogId
+     * @param int $direction
+     *
+     * @return mixed|null
+     */
+    public function getPrevOrNext(int $blogId, int $direction)
+    {
+        $directions = [
+            self::PREVIOUS => [
+                'dir' => '<',
+                'order' => 'DESC'
+            ],
+            self::NEXT => [
+                'dir' => '>',
+                'order' => 'ASC'
+            ],
+        ];
+
+        $result = null;
+
+        try {
+            $result = $this->createQueryBuilder('b')
+                ->select('b.id, b.title')
+                ->where('b.id ' . $directions[$direction]['dir'] . ' :id')
+                ->setFirstResult(0)
+                ->setMaxResults(1)
+                ->setParameter('id', $blogId)
+                ->orderBy('b.id', $directions[$direction]['order'])
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
+
+        return $result;
     }
 
     // /**

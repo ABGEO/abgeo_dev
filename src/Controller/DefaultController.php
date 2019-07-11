@@ -55,7 +55,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * Projects Action.
+     * Single Project Action.
      *
      * @Route("/project/{id}", name="single_project", requirements={"id"="\d+"})
      *
@@ -80,7 +80,7 @@ class DefaultController extends AbstractController
     /**
      * Blog Action.
      *
-     * @Route("/blog/{page}", name="blog", requirements={"page"="\d+"}, defaults={"page"=1})
+     * @Route("/blog", name="blog", requirements={"page"="\d+"}, defaults={"page"=1})
      *
      * @param int $page
      * @param BlogRepository $repository
@@ -110,6 +110,35 @@ class DefaultController extends AbstractController
 
         return $this->render('default/blog.html.twig', [
             'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * Single Blog Action.
+     *
+     * @Route("/blog/{id}", name="single_blog", requirements={"id"="\d+"})
+     *
+     * @param int $id
+     * @param BlogRepository $repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function singleBlog(int $id, BlogRepository $repository)
+    {
+        $blog = $repository->find($id);
+
+        if (null === $blog) {
+            throw new NotFoundHttpException('Blog ' . $id . ' not found!');
+        }
+
+        // Get Previous and Next blogs.
+        $previous = $repository->getPrevOrNext($id, BlogRepository::PREVIOUS);
+        $next = $repository->getPrevOrNext($id, BlogRepository::NEXT);
+
+        return $this->render('default/single_blog.html.twig', [
+            'blog' => $blog,
+            'previousBlog' => $previous,
+            'nextBlog' => $next
         ]);
     }
 

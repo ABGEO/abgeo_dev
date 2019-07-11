@@ -49,9 +49,9 @@
                                     <div class="col-md-9">
                                         <div class="blog_post">
                                             <div class="blog_details">
-                                                <a href="#"><h2>{{ blog.title }}</h2></a>
+                                                <a href="{{ path('single_blog', { 'id': blog.id }) }}"><h2>{{ blog.title }}</h2></a>
                                                 <p>{{ blog.body|preview|raw }}</p>
-                                                <a href="#" class="white_bg_btn">Read More</a>
+                                                <a href="{{ path('single_blog', { 'id': blog.id }) }}" class="white_bg_btn">Read More</a>
                                             </div>
                                         </div>
                                     </div>
