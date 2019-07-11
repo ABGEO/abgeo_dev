@@ -6,6 +6,7 @@ use App\Form\ContactFormType;
 use App\Repository\BlogRepository;
 use App\Repository\ProjectRepository;
 use App\Service\MailerService;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,16 +121,22 @@ class DefaultController extends AbstractController
      *
      * @param int $id
      * @param BlogRepository $repository
+     * @param EntityManagerInterface $em
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function singleBlog(int $id, BlogRepository $repository)
+    public function singleBlog(int $id, BlogRepository $repository, EntityManagerInterface $em)
     {
         $blog = $repository->find($id);
 
         if (null === $blog) {
             throw new NotFoundHttpException('Blog ' . $id . ' not found!');
         }
+
+        // Increment blog views.
+        $blog->incrementViews();
+        $em->persist($blog);
+        $em->flush();
 
         // Get Previous and Next blogs.
         $previous = $repository->getPrevOrNext($id, BlogRepository::PREVIOUS);
