@@ -22,4 +22,5 @@ return [
     Sonata\EasyExtendsBundle\SonataEasyExtendsBundle::class => ['dev' => true, 'test' => true],
     Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle::class => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
+    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
 ];

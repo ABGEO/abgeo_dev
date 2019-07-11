@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Form\ContactFormType;
+use App\Repository\BlogRepository;
 use App\Repository\ProjectRepository;
 use App\Service\MailerService;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -53,7 +56,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * Projects Action.
+     * Single Project Action.
      *
      * @Route("/project/{id}", name="single_project", requirements={"id"="\d+"})
      *
@@ -72,6 +75,85 @@ class DefaultController extends AbstractController
 
         return $this->render('default/project.html.twig', [
             'project' => $project
+        ]);
+    }
+
+    /**
+     * Blog Action.
+     *
+     * @Route("/blog", name="blog", requirements={"page"="\d+"}, defaults={"page"=1})
+     *
+     * @param int $page
+     * @param BlogRepository $repository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function blogListing(int $page, BlogRepository $repository, PaginatorInterface $paginator, Request $request)
+    {
+        $qbOptions = [];
+
+        if ($request->query->has('search')) {
+            // Get search query.
+            $searchQuery = $request->query->get('search');
+
+                                    // Replace spaces to % for SQL like operation.
+            $qbOptions['search'] = str_replace(' ', '%', $searchQuery);
+        }
+
+        // Create pagination.
+        $pagination = $paginator->paginate(
+            $repository->getQueryBuilder($qbOptions),
+            $page,
+            10
+        );
+
+        // Get top 5 blog by views count.
+        $popularBlogs = $repository->getPopularBlogs(5);
+
+        return $this->render('default/blog.html.twig', [
+            'pagination' => $pagination,
+            'popularBlogs' => $popularBlogs
+        ]);
+    }
+
+    /**
+     * Single Blog Action.
+     *
+     * @Route("/blog/{id}", name="single_blog", requirements={"id"="\d+"})
+     *
+     * @param int $id
+     * @param BlogRepository $repository
+     * @param EntityManagerInterface $em
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function singleBlog(int $id, BlogRepository $repository, EntityManagerInterface $em)
+    {
+        $blog = $repository->find($id);
+
+        if (null === $blog) {
+            throw new NotFoundHttpException('Blog ' . $id . ' not found!');
+        }
+
+        // Increment blog views.
+        $blog->incrementViews();
+        $em->persist($blog);
+        $em->flush();
+
+        // Get Previous and Next blogs.
+        $previous = $repository->getPrevOrNext($id, BlogRepository::PREVIOUS);
+        $next = $repository->getPrevOrNext($id, BlogRepository::NEXT);
+
+        // Get top 5 blog by views count.
+        $popularBlogs = $repository->getPopularBlogs(5, [$id]);
+
+        return $this->render('default/single_blog.html.twig', [
+            'blog' => $blog,
+            'previousBlog' => $previous,
+            'nextBlog' => $next,
+            'popularBlogs' => $popularBlogs
         ]);
     }
 
