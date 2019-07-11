@@ -27,30 +27,43 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="blog_left_sidebar">
-                        {% for blog in pagination %}
-                            <article class="row blog_item">
-                                <div class="col-md-3">
-                                    <div class="blog_info text-right">
-                                        <ul class="blog_meta list">
-                                            <li><a href="#">{{ blog.author }}<i class="lnr lnr-user"></i></a></li>
-                                            <li><a href="#">{{ blog.createdOn|date('d/m/Y H:i') }}<i class="lnr lnr-calendar-full"></i></a></li>
-                                            <li><a href="#">{{ blog.views }} Views<i class="lnr lnr-eye"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="blog_post">
-                                        <div class="blog_details">
-                                            <a href="#"><h2>{{ blog.title }}</h2></a>
-                                            <p>{{ blog.body|preview|raw }}</p>
-                                            <a href="#" class="white_bg_btn">Read More</a>
+                        {% if app.request.query.has('search') %}
+                            <div>
+                                <p>Search result for query <b>{{ app.request.query.get('search') }}</b></p>
+                                <a href="{{ path('blog') }}">Reset</a>
+                            </div>
+                        {% endif %}
+
+                        {% if pagination.getTotalItemCount %}
+                            {% for blog in pagination %}
+                                <article class="row blog_item">
+                                    <div class="col-md-3">
+                                        <div class="blog_info text-right">
+                                            <ul class="blog_meta list">
+                                                <li><a href="#">{{ blog.author }}<i class="lnr lnr-user"></i></a></li>
+                                                <li><a href="#">{{ blog.createdOn|date('d/m/Y H:i') }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                                <li><a href="#">{{ blog.views }} Views<i class="lnr lnr-eye"></i></a></li>
+                                            </ul>
                                         </div>
                                     </div>
-                                </div>
-                            </article>
-                        {% endfor %}
+                                    <div class="col-md-9">
+                                        <div class="blog_post">
+                                            <div class="blog_details">
+                                                <a href="#"><h2>{{ blog.title }}</h2></a>
+                                                <p>{{ blog.body|preview|raw }}</p>
+                                                <a href="#" class="white_bg_btn">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
 
-                        {{ knp_pagination_render(pagination) }}
+                            {{ knp_pagination_render(pagination) }}
+                        {% else %}
+                            <div class="header-section text-center pt-5">
+                                <h2>Blogs not found!</h2>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 

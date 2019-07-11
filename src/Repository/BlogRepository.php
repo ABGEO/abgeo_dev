@@ -23,11 +23,20 @@ class BlogRepository extends ServiceEntityRepository
     /**
      * Get query builder.
      *
+     * @param array $options
+     *
      * @return QueryBuilder
      */
-    public function getQueryBuilder(): QueryBuilder
+    public function getQueryBuilder(array $options = []): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('b');
+
+        if (array_key_exists('search', $options)) {
+            // Search words in title and body.
+            $queryBuilder->where('b.title like :search')
+                ->orWhere('b.body like :search')
+                ->setParameter('search', "%{$options['search']}%");
+        }
 
         return $queryBuilder->orderBy('b.createdOn', 'DESC');
     }

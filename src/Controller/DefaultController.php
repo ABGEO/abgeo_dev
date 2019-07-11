@@ -85,13 +85,28 @@ class DefaultController extends AbstractController
      * @param int $page
      * @param BlogRepository $repository
      * @param PaginatorInterface $paginator
+     * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function blogListing(int $page, BlogRepository $repository, PaginatorInterface $paginator)
+    public function blogListing(int $page, BlogRepository $repository, PaginatorInterface $paginator, Request $request)
     {
+        $qbOptions = [];
+
+        if ($request->query->has('search')) {
+            // Get search query.
+            $searchQuery = $request->query->get('search');
+
+                                    // Replace spaces to % for SQL like operation.
+            $qbOptions['search'] = str_replace(' ', '%', $searchQuery);
+        }
+
         // Create pagination.
-        $pagination = $paginator->paginate($repository->getQueryBuilder(), $page, 10);
+        $pagination = $paginator->paginate(
+            $repository->getQueryBuilder($qbOptions),
+            $page,
+            10
+        );
 
         return $this->render('default/blog.html.twig', [
             'pagination' => $pagination
