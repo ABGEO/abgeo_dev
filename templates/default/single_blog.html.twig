@@ -42,6 +42,28 @@
                         </div>
                     </div>
 
+                    <div class="comments-area">
+                        <div id="emotify-container"></div>
+                        <script type='text/javascript'>
+                            var el = document.createElement('script');
+                            var url = window.location.href;
+                            var head = document.getElementsByTagName("head")[0];
+                            el.src = '//www.goemotify.com/api/2.0/reactions.js?url='+url+'&apikey=b2102ac6784a712cf50b859efa7b091069';
+                            el.type = 'text/javascript';
+                            head.appendChild(el);
+                        </script>
+
+                        <div id="emotify-comments-container"></div>
+                        <script type='text/javascript'>
+                            var el = document.createElement('script');
+                            var url = window.location.href;
+                            var head = document.getElementsByTagName("head")[0];
+                            el.src = '//www.goemotify.com/api/2.0/comments_widget.js?url='+url+'&apikey=b2102ac6784a712cf50b859efa7b091069';
+                            el.type = 'text/javascript';
+                            head.appendChild(el);
+                        </script>
+                    </div>
+
                     <div class="navigation-area">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
