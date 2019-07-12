@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ blog.title }}{% endblock %}
+{% block description %}{{ blog.body|striptags|slice(1, 150) }}{% endblock %}
+{% block og_type %}article{% endblock %}
 
 {% block body %}
     <!--================ Home Banner Area =================-->
@@ -40,6 +42,28 @@
                         <div class="col-lg-9 col-md-9 blog_details">
                             {{ blog.body|raw }}
                         </div>
+                    </div>
+
+                    <div class="comments-area">
+                        <div id="emotify-container"></div>
+                        <script type='text/javascript'>
+                            var el = document.createElement('script');
+                            var url = window.location.href;
+                            var head = document.getElementsByTagName("head")[0];
+                            el.src = '//www.goemotify.com/api/2.0/reactions.js?url='+url+'&apikey=b2102ac6784a712cf50b859efa7b091069';
+                            el.type = 'text/javascript';
+                            head.appendChild(el);
+                        </script>
+
+                        <div id="emotify-comments-container"></div>
+                        <script type='text/javascript'>
+                            var el = document.createElement('script');
+                            var url = window.location.href;
+                            var head = document.getElementsByTagName("head")[0];
+                            el.src = '//www.goemotify.com/api/2.0/comments_widget.js?url='+url+'&apikey=b2102ac6784a712cf50b859efa7b091069';
+                            el.type = 'text/javascript';
+                            head.appendChild(el);
+                        </script>
                     </div>
 
                     <div class="navigation-area">

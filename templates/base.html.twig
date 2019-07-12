@@ -3,11 +3,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
+    {# Required meta tags #}
     <meta charset="utf-8">
+    <meta name="description" content="{{ block('description') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/png">
-    <title>{% block title %}{% endblock %} | ABGEO's Personal website</title>
+    <title>{{ block('title') }} | ABGEO's Personal website</title>
+
+    {# OG Tags #}
+    <meta property="og:title" content="{{ block('title') }} | ABGEO's Personal website" />
+    <meta property="og:site_name" content="ABGEO's Personal website" />
+    <meta property="og:description" content="{{ block('description') }}" />
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    <meta property="og:image" content="{% block og_image %}{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('img/abgeo.JPG') }}{% endblock %}" />
+
     {% block stylesheets %}
         {# Bootstrap CSS #}
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">

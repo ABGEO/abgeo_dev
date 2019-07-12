@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ project.title }}{% endblock %}
+{% block description %}{{ project.description|striptags|slice(1, 150) }}{% endblock %}
+{% block og_image %}{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('uploads/images/projects/' ~ project.image) }}{% endblock %}
+{% block og_type %}article{% endblock %}
 
 {% block body %}
     <!--================ Home Banner Area =================-->
@@ -26,20 +29,47 @@
     <!--================ Project Area =================-->
     <section class="project_area white_project p_120">
         <div class="container">
-            <div class="gallery_f_inner row projectsGallery">
+            <div class="row">
                 <div class="col-12">
-                    <div class="project_item">
-                        <div class="h_gallery_item">
-                            <div class="g_img_item">
-                                <img class="img-fluid" src="{{ asset('uploads/images/projects/' ~ project.image) }}" alt="{{ project.title }}">
-                                <a class="light" href="{{ asset('uploads/images/projects/' ~ project.image) }}">
-                                    <img src="{{ asset('img/gallery-icon.png') }}" alt="">
-                                </a>
+                    <div class="gallery_f_inner projectsGallery">
+                        <div class="project_item">
+                            <div class="h_gallery_item">
+                                <div class="g_img_item">
+                                    <img class="img-fluid" src="{{ asset('uploads/images/projects/' ~ project.image) }}"
+                                         alt="{{ project.title }}">
+                                    <a class="light" href="{{ asset('uploads/images/projects/' ~ project.image) }}">
+                                        <img src="{{ asset('img/gallery-icon.png') }}" alt="">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {{ project.description|raw }}
+                    <div class="single-post pt-5 margin">
+                        {{ project.description|raw }}
+
+                        <div class="comments-area">
+                            <div id="emotify-container"></div>
+                            <script type='text/javascript'>
+                                var el = document.createElement('script');
+                                var url = window.location.href;
+                                var head = document.getElementsByTagName("head")[0];
+                                el.src = '//www.goemotify.com/api/2.0/reactions.js?url='+url+'&apikey=b2102ac6784a712cf50b859efa7b091069';
+                                el.type = 'text/javascript';
+                                head.appendChild(el);
+                            </script>
+
+                            <div id="emotify-comments-container"></div>
+                            <script type='text/javascript'>
+                                var el = document.createElement('script');
+                                var url = window.location.href;
+                                var head = document.getElementsByTagName("head")[0];
+                                el.src = '//www.goemotify.com/api/2.0/comments_widget.js?url='+url+'&apikey=b2102ac6784a712cf50b859efa7b091069';
+                                el.type = 'text/javascript';
+                                head.appendChild(el);
+                            </script>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
