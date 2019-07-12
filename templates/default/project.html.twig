@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ project.title }}{% endblock %}
-{% block description %}{{ project.description|striptags|slice(1, 150) }}{% endblock %}
+{% block description %}{{ project.description|striptags|slice(0, 150) }}{% endblock %}
 {% block og_image %}{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('uploads/images/projects/' ~ project.image) }}{% endblock %}
 {% block og_type %}article{% endblock %}
 
