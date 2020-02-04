@@ -41,7 +41,7 @@
 
         <script>
             $(document).ready(function () {
-                let currentModal = $('#{{ app.session.getFlashBag().get('contact-email-status')[0] }}');
+                let currentModal = $('#{{ app.session.getFlashBag().get('contact-email-status')[0] ?? 'error' }}');
 
                 currentModal.fadeIn();
                 $('.modal').modal('hide');
@@ -93,7 +93,7 @@
                         <div class="info_item">
                             <i class="lnr lnr-envelope"></i>
                             <h6><a href="mailto:me@abgeo.dev">me@abgeo.dev</a></h6>
-                            <p>Send us your query anytime!</p>
+                            <p>Contact me anytime!</p>
                         </div>
                     </div>
                 </div>

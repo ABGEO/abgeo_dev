@@ -78,17 +78,17 @@ class MailerService
         string $template,
         array $variables = [],
         string $from = null
-    ): bool
-    {
-        $message = new Swift_Message($subject);
-        $fromEmail = $from ?: getenv('SITE_EMAIL');
-        $message->setFrom($fromEmail)->setTo($to)->setBody(
-            $this->twig->render($template, $variables),
-            'text/html'
-        );
-        $status = $this->mailer->send($message);
+    ): bool {
+        $message = (new Swift_Message())
+            ->setSubject($subject)
+            ->setFrom($from ?: getenv('SITE_EMAIL'))
+            ->setTo($to)
+            ->setBody(
+                $this->twig->render($template, $variables),
+                'text/html'
+            );
 
-        return $status;
+        return $this->mailer->send($message);
     }
 
 }
