@@ -2,9 +2,8 @@
 /**
  * Mailer service.
  *
- * @package    InformaticsGe
- * @subpackage Service
- * @author     Squiz Pty Ltd <products@squiz.net>\
+ * @package App\Service
+ * @author  Temuri Takalandze <takalandzet@gmail.com>
  */
 
 namespace App\Service;
