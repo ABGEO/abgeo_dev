@@ -5008,16 +5008,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.13.1",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f"
+                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7b4aab9743c30be783b73de055d24a39cf4b954f",
-                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fa79b11539418b02fc5e1897267673ba2c19419c",
+                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c",
                 "shasum": ""
             },
             "require": {
@@ -5029,7 +5029,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -5063,7 +5063,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-11-27T14:18:11+00:00"
+            "time": "2020-05-12T16:47:27+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -6183,22 +6183,22 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.3.2",
+            "version": "v4.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "934ab1d18545149e012aa898cf02e9f23790f7a0"
+                "reference": "46e462be71935ae15eab531e4d491d801857f24c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/934ab1d18545149e012aa898cf02e9f23790f7a0",
-                "reference": "934ab1d18545149e012aa898cf02e9f23790f7a0",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/46e462be71935ae15eab531e4d491d801857f24c",
+                "reference": "46e462be71935ae15eab531e4d491d801857f24c",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
                 "symfony/polyfill-mbstring": "~1.0",
-                "symfony/translation-contracts": "^1.1.2"
+                "symfony/translation-contracts": "^1.1.6"
             },
             "conflict": {
                 "symfony/config": "<3.4",
@@ -6255,20 +6255,20 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-06-13T11:03:18+00:00"
+            "time": "2020-01-04T12:24:57+00:00"
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v1.1.5",
+            "version": "v1.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "cb4b18ad7b92a26e83b65dde940fab78339e6f3c"
+                "reference": "364518c132c95642e530d9b2d217acbc2ccac3e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/cb4b18ad7b92a26e83b65dde940fab78339e6f3c",
-                "reference": "cb4b18ad7b92a26e83b65dde940fab78339e6f3c",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/364518c132c95642e530d9b2d217acbc2ccac3e6",
+                "reference": "364518c132c95642e530d9b2d217acbc2ccac3e6",
                 "shasum": ""
             },
             "require": {
@@ -6312,7 +6312,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-06-13T11:15:36+00:00"
+            "time": "2019-09-17T11:12:18+00:00"
         },
         {
             "name": "symfony/twig-bridge",
@@ -7105,6 +7105,7 @@
                 "monolog",
                 "productivity"
             ],
+            "abandoned": true,
             "time": "2018-07-27T15:41:37+00:00"
         },
         {
