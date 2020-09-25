@@ -3,6 +3,12 @@
 {% block title %}Homepage{% endblock %}
 {% block description %}ABGEO's Personal website{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/mdb.css') }}">
+
+    {{ parent() }}
+{% endblock %}
+
 {% block body %}
     <!--================ Home Banner Area =================-->
     <section class="home_banner_area">
@@ -94,94 +100,51 @@
                                 I contributed to well-known projects and companies such as Symfony, phpMyAdmin, Slim Framework,
                                 Composer, Wodby and etc.
                             </p>
-                            <ul class="unordered-list">
-                                <li><b>My Framework</b>: <i>Symfony</i></li>
-                                <li><b>My CMS</b>: <i>Drupal</i></li>
-                                <li><b>My OS</b>: <i>Linux, 5.4.6-2-MANJARO</i></li>
-                                <li><b>My IDE</b>: <i>JetBrains PhpStorm</i></li>
-                                <li><b>My Debugger</b>: Xdebug<i></i></li>
-                            </ul>
                         </div>
-                        {#
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="wel_item">
-                                    <i class="lnr lnr-database"></i>
-                                    <h4><span class="counter">2.5</span>M</h4>
-                                    <p>Count 1</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="wel_item">
-                                    <i class="lnr lnr-book"></i>
-                                    <h4><span class="counter">1465</span></h4>
-                                    <p>Count 2</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="wel_item">
-                                    <i class="lnr lnr-users"></i>
-                                    <h4><span class="counter">3965</span></h4>
-                                    <p>Count 3</p>
-                                </div>
-                            </div>
-                        </div>
-                        #}
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="tools_expert">
-                        <div class="skill_main">
-                            <div class="skill_item">
-                                <h4>PHP</h4>
-                                <div class="progress_br">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="90"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
+                    <div class="welcome_text">
+                        <h4>My Stack</h4>
+                        <div class="pb-3">
+                            <ul class="unordered-list">
+                                <li><b>Languages</b>: <i>PHP, Java, Go, Python</i></li>
+                                <li><b>Frameworks</b>: <i>Symfony, Spring Boot</i></li>
+                                <li><b>CMSes</b>: <i>Drupal</i></li>
+                                <li><b>OS</b>: <i>Linux, 5.4.62-1-MANJARO</i></li>
+                                <li><b>IDEs</b>: <i>Everything from JetBrains :)</i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Skills</h4>
+
+                            {% set colors = [
+                                'success-color',
+                                'default-color',
+                                'secondary-color',
+                                'red lighten-1',
+                                'blue lighten-1',
+                                'blue lighten-1',
+                                'indigo darken-1',
+                                'purple-gradient',
+                                'elegant-color',
+                                'brown lighten-1',
+                                'deep-orange lighten-1',
+                                'aqua-gradient',
+                                'mdb-color lighten-1',
+                                'peach-gradient',
+                            ] %}
+
+                            {% for skill in skills -%}
+                                <div class="chip chip-md {{ random(colors)}} white-text z-depth-1 mr-0 waves-effect">
+                                    <i class="fa {{ skill.icon }}"></i>&nbsp;&nbsp;{{ skill.title }}
                                 </div>
-                            </div>
-                            <div class="skill_item">
-                                <h4>JavaScript</h4>
-                                <div class="progress_br">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="50"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="skill_item">
-                                <h4>MySQL</h4>
-                                <div class="progress_br">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="skill_item">
-                                <h4>Symfony Framework</h4>
-                                <div class="progress_br">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="80"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="skill_item">
-                                <h4>Drupal</h4>
-                                <div class="progress_br">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="60"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor -%}
                         </div>
                     </div>
                 </div>
