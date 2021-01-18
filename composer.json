@@ -7,7 +7,7 @@
         "ext-iconv": "*",
         "friendsofsymfony/ckeditor-bundle": "^2.1",
         "karser/karser-recaptcha3-bundle": "^0.1.14",
-        "knplabs/knp-paginator-bundle": "^4.0",
+        "knplabs/knp-paginator-bundle": "^5.3",
         "sensio/framework-extra-bundle": "^5.1",
         "sonata-project/admin-bundle": "^3.51",
         "sonata-project/doctrine-orm-admin-bundle": "^3.9",
