@@ -1,0 +1,29 @@
+static:
+  homepage:
+    route: index
+    changefreq: monthly
+    priority: 1.0
+  projects:
+    route: projects
+    changefreq: weekly
+    priority: 1.0
+  blog:
+    route: blog
+    changefreq: weekly
+    priority: 1.0
+  contact:
+    route: contact
+    changefreq: never
+    priority: 1.0
+
+dynamic:
+  single_project:
+    route: single_project
+    class: App\Entity\Project
+    changefreq: monthly
+    priority: 1.0
+  single_blog:
+    route: single_blog
+    class: App\Entity\Blog
+    changefreq: monthly
+    priority: 1.0
