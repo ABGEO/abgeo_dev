@@ -45,25 +45,21 @@
                     </div>
 
                     <div class="comments-area">
-                        <div id="emotify-container"></div>
-                        <script type='text/javascript'>
-                            var el = document.createElement('script');
-                            var url = window.location.href;
-                            var head = document.getElementsByTagName("head")[0];
-                            el.src = '//www.goemotify.com/api/2.0/reactions.js?url='+url+'&apikey=b2102ac6784a712cf50b859efa7b091069';
-                            el.type = 'text/javascript';
-                            head.appendChild(el);
-                        </script>
+                        <div id="disqus_thread"></div>
+                        <script>
+                            var disqus_config = function () {
+                                this.page.url = "{{ app.request.uri }}";
+                                this.page.identifier = "blog-{{ blog.id }}";
+                            };
 
-                        <div id="emotify-comments-container"></div>
-                        <script type='text/javascript'>
-                            var el = document.createElement('script');
-                            var url = window.location.href;
-                            var head = document.getElementsByTagName("head")[0];
-                            el.src = '//www.goemotify.com/api/2.0/comments_widget.js?url='+url+'&apikey=b2102ac6784a712cf50b859efa7b091069';
-                            el.type = 'text/javascript';
-                            head.appendChild(el);
+                            (function() { // DON'T EDIT BELOW THIS LINE
+                                var d = document, s = d.createElement('script');
+                                s.src = 'https://abgeo-dev.disqus.com/embed.js';
+                                s.setAttribute('data-timestamp', +new Date());
+                                (d.head || d.body).appendChild(s);
+                            })();
                         </script>
+                        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                     </div>
 
                     <div class="navigation-area">
