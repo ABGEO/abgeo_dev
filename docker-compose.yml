@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  php:
+    build:
+      dockerfile: docker/Dockerfile
+      context: .
+    image: abgeo_dev_php
+    container_name: abgeo_dev_php
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html/public
+    volumes:
+      - ./:/var/www/html
+    labels:
+      - "traefik.http.routers.abgeo_dev_php.rule=Host(`abgeo.localhost`)"
+
+  mariadb:
+    image: mariadb
+    container_name: "abgeo_dev_mariadb"
+    stop_grace_period: 30s
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: abgeo_dev
+      MYSQL_USER: abgeo
+      MYSQL_PASSWORD: pass
+    #    volumes:
+    #      - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
+    #      - /path/to/mariadb/data/on/host:/var/lib/mysql # Use bind mount
+
+  traefik:
+    image: traefik:v2.0
+    container_name: "abgeo_dev_traefik"
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
